@@ -1,3 +1,5 @@
+namespace RutrackerDumpParser;
+
 public class DbTorrent
 {
     public DbTorrent(TorrentRoot torrent)
@@ -27,8 +29,7 @@ public class DbTorrent
     public string RegistredAt { get; }
     public long Size { get; }
     public string Files { get; }
-
-    public string Del { get; }
+    public bool Del { get; }
     
     private string DirAndFilesToString(TorrentRoot torrentRoot)
     {

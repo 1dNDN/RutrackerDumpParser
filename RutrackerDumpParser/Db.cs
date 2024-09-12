@@ -1,16 +1,10 @@
 ﻿using System.Configuration.Provider;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Text;
-using System.Text.Json;
-
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 
 using SQLitePCL;
 
-namespace TloSql;
+namespace RutrackerDumpParser;
 
 public class DatabaseLowLvl
 {
@@ -108,12 +102,12 @@ public class DatabaseLowLvl
     {
         StartTimer();
         
-        var chunkSize = 32766 / 11;
+        var chunkSize = 32766 / 12;
         
         var chunks = ChunkArray(torrents, chunkSize);
     
-        var sql = "INSERT INTO Topics (Hash, TrackerId, Title, ForumId, ForumText, Content, OldHashes, TopicId, RegistredAt, Size, Files) VALUES ";
-        var paramsPart = $"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
+        var sql = "INSERT INTO Topics (Hash, TrackerId, Title, ForumId, ForumText, Content, OldHashes, TopicId, RegistredAt, Size, Files, Del) VALUES ";
+        var paramsPart = $"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
         
         ConstructStatement(chunkSize, sql, paramsPart, out var stmt);
 
@@ -142,17 +136,18 @@ public class DatabaseLowLvl
     {
         for (var i = 0; i < chunks[ci].Length; i++)
         {
-            Bind(stmt, 11 * i + 1, chunks[ci][i].Hash);
-            Bind(stmt, 11 * i + 2, chunks[ci][i].TrackerId);
-            Bind(stmt, 11 * i + 3, chunks[ci][i].Title);
-            Bind(stmt, 11 * i + 4, chunks[ci][i].ForumId);
-            Bind(stmt, 11 * i + 5, chunks[ci][i].ForumText);
-            Bind(stmt, 11 * i + 6, chunks[ci][i].Content);
-            Bind(stmt, 11 * i + 7, chunks[ci][i].OldHashes);
-            Bind(stmt, 11 * i + 8, chunks[ci][i].TopicId);
-            Bind(stmt, 11 * i + 9, chunks[ci][i].RegistredAt);
-            Bind(stmt, 11 * i + 10, chunks[ci][i].Size);
-            Bind(stmt, 11 * i + 11, chunks[ci][i].Files);
+            Bind(stmt, 12 * i + 1, chunks[ci][i].Hash);
+            Bind(stmt, 12 * i + 2, chunks[ci][i].TrackerId);
+            Bind(stmt, 12 * i + 3, chunks[ci][i].Title);
+            Bind(stmt, 12 * i + 4, chunks[ci][i].ForumId);
+            Bind(stmt, 12 * i + 5, chunks[ci][i].ForumText);
+            Bind(stmt, 12 * i + 6, chunks[ci][i].Content);
+            Bind(stmt, 12 * i + 7, chunks[ci][i].OldHashes);
+            Bind(stmt, 12 * i + 8, chunks[ci][i].TopicId);
+            Bind(stmt, 12 * i + 9, chunks[ci][i].RegistredAt);
+            Bind(stmt, 12 * i + 10, chunks[ci][i].Size);
+            Bind(stmt, 12 * i + 11, chunks[ci][i].Files);
+            Bind(stmt, 12 * i + 12, chunks[ci][i].Del ? 1 : 0);
         }
     }
 

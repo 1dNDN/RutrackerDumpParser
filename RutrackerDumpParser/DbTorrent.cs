@@ -15,21 +15,21 @@ public class DbTorrent
         RegistredAt = torrent.RegistredAt;
         Size = torrent.Size;
         Files = DirAndFilesToString(torrent);
-        Del = torrent.Del;
+        Del = torrent.Del != null;
     }
 
-    public string Hash { get; }
-    public long TrackerId { get; }
-    public string Title { get; }
-    public long ForumId { get; }
-    public string ForumText { get; }
-    public string Content { get; }
-    public string OldHashes { get; }
-    public long TopicId { get; }
-    public string RegistredAt { get; }
-    public long Size { get; }
-    public string Files { get; }
-    public bool Del { get; }
+    public string Hash { get; set; }
+    public long TrackerId { get; set; }
+    public string Title { get; set; }
+    public long ForumId { get; set; }
+    public string ForumText { get; set; }
+    public string Content { get; set; }
+    public string OldHashes { get; set; }
+    public long TopicId { get; set; }
+    public string RegistredAt { get; set; }
+    public long Size { get; set; }
+    public string Files { get; set; }
+    public bool Del { get; set; }
     
     private string DirAndFilesToString(TorrentRoot torrentRoot)
     {

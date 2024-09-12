@@ -8,25 +8,28 @@ public class DbTorrent
         ForumId = torrent.Forum.Id;
         ForumText = torrent.Forum.Text;
         Content = torrent.Content;
-        OldHashes = string.Join(";", torrent.Old);
+        OldHashes = string.Join(";", torrent.Old.Select(old => $"{old.Hash}|{old.Text}"));
         TopicId = torrent.Id;
         RegistredAt = torrent.RegistredAt;
         Size = torrent.Size;
         Files = DirAndFilesToString(torrent);
+        Del = torrent.Del;
     }
 
-    public string Hash;
-    public long TrackerId;
-    public string Title;
-    public long ForumId;
-    public string ForumText;
-    public string Content;
-    public string OldHashes;
-    public long TopicId;
-    public string RegistredAt;
-    public long Size;
-    public string Files;
+    public string Hash { get; }
+    public long TrackerId { get; }
+    public string Title { get; }
+    public long ForumId { get; }
+    public string ForumText { get; }
+    public string Content { get; }
+    public string OldHashes { get; }
+    public long TopicId { get; }
+    public string RegistredAt { get; }
+    public long Size { get; }
+    public string Files { get; }
 
+    public string Del { get; }
+    
     private string DirAndFilesToString(TorrentRoot torrentRoot)
     {
         var result = "";

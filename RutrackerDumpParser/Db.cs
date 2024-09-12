@@ -129,7 +129,7 @@ public class DatabaseLowLvl
             }
         }
         
-        StopTimer($"Insert all topics with chunk size {chunkSize}");
+        StopTimer($"Вставка всех топиков с размером чанка {chunkSize}");
     }
 
     private void BindKeeperParams(List<DbTorrent[]> chunks, int ci, sqlite3_stmt stmt)
